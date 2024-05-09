@@ -46,11 +46,6 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		return row;
 	}
 
-	@Override
-	public int actualizar(Usuario usuario) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public List<Usuario> obtenerTodos() {
@@ -78,6 +73,80 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			ex.printStackTrace();
 		}
 		return lista;
+	}
+
+	@Override
+	public int depositar(Double monto, int usuarioID) {
+		int row = 0;
+		return row;
+	}
+
+	@Override
+	public int retirar(Double monto, int usuarioID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Usuario obtenerUsuario(String correo, String contrasena) {
+		sql = "select * from usuarios where correo = ? and contrasena = ?";
+		con = DBConexion.getConexion();
+		
+		try {
+			// le pasamos nuestra sentencia sql
+			pstm = con.prepareStatement(sql);
+			// seteamos parametros
+			pstm.setString(1, correo);
+			pstm.setString(2, contrasena);
+			
+			// guardamos datos y ejecutmos query
+			rs = pstm.executeQuery();
+			
+			//si nos trae al usuario
+			if(rs.next()) {
+				usuario = new Usuario();
+				usuario.setId(rs.getInt("id"));
+				usuario.setNombre(rs.getString("nombre"));
+				usuario.setApellido(rs.getString("apellido"));
+				usuario.setCorreo(rs.getString("correo"));
+				usuario.setContrasena(rs.getString("contrasena"));
+				usuario.setSaldo(rs.getDouble("saldo"));
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return usuario;
+	}
+
+
+	@Override
+	public Usuario obtenerUsuarioPorID(int usuarioID) {
+		sql = "select * from usuarios where id = ?";
+		con = DBConexion.getConexion();
+		
+		try {
+			// le pasamos nuestra sentencia sql
+			pstm = con.prepareStatement(sql);
+			// seteamos parametros
+			pstm.setInt(1, usuarioID);
+			
+			// guardamos datos y ejecutmos query
+			rs = pstm.executeQuery();
+			
+			//si nos trae al usuario
+			if(rs.next()) {
+				usuario = new Usuario();
+				usuario.setId(rs.getInt("id"));
+				usuario.setNombre(rs.getString("nombre"));
+				usuario.setApellido(rs.getString("apellido"));
+				usuario.setCorreo(rs.getString("correo"));
+				usuario.setContrasena(rs.getString("contrasena"));
+				usuario.setSaldo(rs.getDouble("saldo"));
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return usuario;
 	}
 
 }
