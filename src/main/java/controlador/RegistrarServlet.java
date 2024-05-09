@@ -29,11 +29,17 @@ public class RegistrarServlet extends HttpServlet {
 		String apellido = request.getParameter("apellido");
 		String correo = request.getParameter("correo");
 		String contrasena = request.getParameter("contrasena");
+		int operacion;
 		
 		try {
 			usuario = new Usuario(nombre,apellido,correo,contrasena,0.0);
-		usuarioDAO.guardar(usuario);
-		dispatcher = request.getRequestDispatcher("login.jsp");
+			operacion = usuarioDAO.guardar(usuario);
+			if(operacion > 0) {
+				request.setAttribute("status", "success");
+				dispatcher = request.getRequestDispatcher("index.jsp");
+			} else {
+				request.setAttribute("status", "failed");
+			}
 		dispatcher.forward(request, response);
 		} catch (Exception e)  {
 			e.printStackTrace();
