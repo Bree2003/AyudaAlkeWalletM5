@@ -1,5 +1,6 @@
 package controlador;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,6 +19,15 @@ import conexion.DBConexion;
 @WebServlet("/operacion")
 public class OperacionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// con requestdispatcher se hace una redireccion interna
+		//si lo enviamos con la ruta /registarse seguira mostrando /registrase pero con la vista cambiada
+		RequestDispatcher dispatcher = null;
+		dispatcher = request.getRequestDispatcher("home.jsp");
+		dispatcher.forward(request, response);
+	}
        
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

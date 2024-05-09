@@ -19,7 +19,16 @@ import conexion.DBConexion;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	RequestDispatcher dispatcher = null;       
+	RequestDispatcher dispatcher = null;     
+	
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// con requestdispatcher se hace una redireccion interna
+				//si lo enviamos con la ruta /registarse seguira mostrando /registrase pero con la vista cambiada
+				RequestDispatcher dispatcher = null;
+				dispatcher = request.getRequestDispatcher("login.jsp");
+				dispatcher.forward(request, response);
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

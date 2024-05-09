@@ -16,6 +16,19 @@ import dao.UsuarioDAOImpl;
 @WebServlet("/registrarse")
 public class RegistrarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// con response.sendredirect nos hace redireccionar de forma visual al usuario
+		// si lo enviamos con la ruta /registrarse se cambiará a /registrarse.jsp
+		//response.sendRedirect("index.jsp");
+		
+		// con requestdispatcher se hace una redireccion interna
+		//si lo enviamos con la ruta /registarse seguira mostrando /registrase pero con la vista cambiada
+		RequestDispatcher dispatcher = null;
+		dispatcher = request.getRequestDispatcher("index.jsp");
+		dispatcher.forward(request, response);
+	}
        
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
