@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import modelo.Usuario;
 
 import java.io.IOException;
 
@@ -16,6 +17,7 @@ import dao.UsuarioDAOImpl;
 public class OperacionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	UsuarioDAO usuarioDAO = new UsuarioDAOImpl();
+	Usuario usuario = null;
 	int exitoso = 0;
 	
 
@@ -27,6 +29,9 @@ public class OperacionServlet extends HttpServlet {
 				// obtener sesion
 				HttpSession session = request.getSession(false);
 				int id = (int) session.getAttribute("id");
+				
+				// obtener usuario
+				usuario = (Usuario) session.getAttribute("usuario");
 		
 				//saber si es depositar o retirar
 				if(operacion.equals("depositar")) {
@@ -39,14 +44,20 @@ public class OperacionServlet extends HttpServlet {
 						response.sendRedirect("home");
 					}
 				} else if (operacion.equals("retirar")) {
-					exitoso = usuarioDAO.retirar(monto, id);
-					if(exitoso > 0) {
-						session.setAttribute("status", "success");
-						response.sendRedirect("home");
+					if(usuario.getSaldo() >= monto) {
+						exitoso = usuarioDAO.retirar(monto, id);
+						if(exitoso > 0) {
+							session.setAttribute("status", "success");
+							response.sendRedirect("home");
+						} else {
+							session.setAttribute("status", "failed");
+							response.sendRedirect("home");
+						}
 					} else {
 						session.setAttribute("status", "failed");
 						response.sendRedirect("home");
 					}
+					
 				}
 		
 		
