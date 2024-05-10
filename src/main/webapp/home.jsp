@@ -10,6 +10,7 @@
 </head>
 <body>
 <% Usuario usuario = (Usuario) session.getAttribute("usuario");%>
+<input type="hidden" id="status" value="<%= session.getAttribute("status") %>">
 <h1>Hola, <c:out value="${usuario.getNombre()}"></c:out></h1>
 <h3>Tienes un saldo de <c:out value="${usuario.getSaldo()}"></c:out></h3>
 <%-- el action es la ruta a la que va a redirigir al momento de hacer submit --%>
@@ -25,5 +26,14 @@
 <input type="submit" value="enviar">
 </form>
 <button id="logout"><a href="logout">Cerrar Sesión</a></button>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript">
+var status = document.getElementById("status").value;
+if(status == "success") {
+	swal.fire("felicitaciones","Operación exitosa", "success");
+}else if(status == "failed"){
+	swal.fire("Error","operación no se pudo hacer", "error");
+}
+</script>
 </body>
 </html>

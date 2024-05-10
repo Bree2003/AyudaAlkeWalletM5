@@ -78,13 +78,47 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	@Override
 	public int depositar(Double monto, int usuarioID) {
 		int row = 0;
+		sql = "UPDATE usuarios SET saldo = saldo + ? WHERE id = ?";
+		con = DBConexion.getConexion();
+		
+		try {
+			//statement -> consultas estaticas
+			//preparedstatement -> consulta dinamica, le debemos pasar los parametros
+			// estos son representados con un ?
+			PreparedStatement pstm = con.prepareStatement(sql);
+			//setear parametros en la query
+			pstm.setDouble(1, monto);
+			pstm.setInt(2, usuarioID);
+			row = pstm.executeUpdate();
+			pstm.close();
+			con.close();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
 		return row;
 	}
 
 	@Override
 	public int retirar(Double monto, int usuarioID) {
-		// TODO Auto-generated method stub
-		return 0;
+		int row = 0;
+		sql = "UPDATE usuarios SET saldo = saldo - ? WHERE id = ?";
+		con = DBConexion.getConexion();
+		
+		try {
+			//statement -> consultas estaticas
+			//preparedstatement -> consulta dinamica, le debemos pasar los parametros
+			// estos son representados con un ?
+			PreparedStatement pstm = con.prepareStatement(sql);
+			//setear parametros en la query
+			pstm.setDouble(1, monto);
+			pstm.setInt(2, usuarioID);
+			row = pstm.executeUpdate();
+			pstm.close();
+			con.close();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return row;
 	}
 
 	@Override
