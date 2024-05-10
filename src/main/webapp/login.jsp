@@ -16,6 +16,7 @@
 <input type="password" id="contrasena" name="contrasena" placeholder="*****" required>
 <input type="submit" value="Enviar">
 </form>
+<a href="registrarse">Registrarse</a>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
 var status = document.getElementById("status").value;

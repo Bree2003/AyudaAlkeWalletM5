@@ -24,5 +24,6 @@
 </select>
 <input type="submit" value="enviar">
 </form>
+<button id="logout"><a href="logout">Cerrar Sesión</a></button>
 </body>
 </html>

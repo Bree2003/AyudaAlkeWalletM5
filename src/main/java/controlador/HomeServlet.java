@@ -24,22 +24,28 @@ public class HomeServlet extends HttpServlet {
 		// nos traemos al usuario guardado en la sesion
 		HttpSession session = request.getSession(false);
 		// colocamos false para que no nos cree una si es que no existe
-		
 		// si no existe sesion
 		if(session == null) {
 			//que nos redireccione al login
-			response.sendRedirect("login.jsp");
+			response.sendRedirect("login");
 		} else {
-			// y si es que existe al home
-			
 			// nos traemos el id del usuario
-			int id = (Integer) session.getAttribute("id");
+			Object id = session.getAttribute("id");
 			
-			Usuario usuario = usuarioDAO.obtenerUsuarioPorID(id);
-			session.setAttribute("usuario", usuario);
-			dispatcher = request.getRequestDispatcher("home.jsp");
-			dispatcher.forward(request, response);
+			// si no existe id
+			if(id == null) {
+				//que nos redireccione al login
+				response.sendRedirect("login");
+			} else {
+				// y si es que existe al home		
+				int id2 = (int) session.getAttribute("id");
+				Usuario usuario = usuarioDAO.obtenerUsuarioPorID(id2);
+				session.setAttribute("usuario", usuario);
+				dispatcher = request.getRequestDispatcher("home.jsp");
+				dispatcher.forward(request, response);
+			}
 		}
+		
 	}
 
 

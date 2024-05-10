@@ -20,7 +20,7 @@
 <input type="password" id="contrasena" name="contrasena" placeholder="*****" minlength="4" required>
 <input type="submit" value="Enviar">
 </form>
-<a href="login.jsp">Iniciar sesión</a>
+<a href="login">Iniciar sesión</a>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
 var status = document.getElementById("status").value;
